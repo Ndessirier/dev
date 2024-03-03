@@ -1,61 +1,25 @@
 pipeline {
     agent any
-
-    stages {
-        stage('Checkout') {
-            steps {
-                // Récupérer le code depuis Git
-                checkout scm
-            }
-        }
-
-        stage('Compilation') {
-            steps {
-                // Compiler le projet avec Maven
-                script {
-                    sh 'mvn clean install'
-                }
-            }
-        }
-
-        stage('Tests Maven') {
-            steps {
-                // Ajouter les tests Maven
-                script {
-                    sh 'mvn test'
-                }
-            }
-        }
-
-        stage('Javadoc') {
-            steps {
-                // Générer la Javadoc
-                script {
-                    sh 'mvn javadoc:javadoc'
-                }
-            }
-        }
-
-        stage('SonarQube Analysis') {
-            steps {
-                // Lancer SonarScanner
-                script {
-                    withSonarQubeEnv('SonarQube Server') {
-                        sh 'mvn sonar:sonar'
-                    }
-                }
-            }
-        }
-    }
     
-    post {
-        success {
-            // Actions à effectuer en cas de succès
-            echo 'Le pipeline a réussi!'
+    tools {maven "maven-3.5.2"}
+    
+    stages {
+        stage('Checkout'){
+            steps{
+                git branch: 'dev', url :'https://github.com/Ndessirier/dev.git'
+            }
         }
-        failure {
-            // Actions à effectuer en cas d'échec
-            echo 'Le pipeline a échoué!'
+        
+        stage('Build'){
+            steps{
+                sh 'mvn compile'
+            }
         }
+        
+        stage('Javadoc'){
+            steps{
+                sh 'mvn javadoc:javadoc'
+            }
+        }
+        
     }
-}
