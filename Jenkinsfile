@@ -1,35 +1,45 @@
 pipeline {
     agent any
 
+    tools {
+        maven 'maven-3.5.2'
+    }
+
     triggers {
-        pollSCM('* * * * *') // Lance le pipeline toutes les 3 minutes en cas de changements dans le SCM
+        pollSCM('*/3 * * * *') 
     }
 
     stages {
-        stage('Vérifier la compilation') {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Compilation') {
             steps {
                 script {
-                    // Assurez-vous d'ajuster la commande de compilation en fonction de votre projet
                     sh 'mvn clean compile'
                 }
             }
         }
 
-        stage('Ne lance pas de tests') {
+        stage('Tests') {
             steps {
-                // Vous pouvez ajouter des étapes supplémentaires ici, par exemple, pour copier des rapports de test
+                script {
+                    sh 'mvn test'
+                }
             }
         }
 
-        stage('Publier la Javadoc') {
+        stage('Javadoc') {
             steps {
                 script {
-                    // Assurez-vous d'ajuster la commande de génération de la Javadoc en fonction de votre projet
+                    // Génère la Javadoc
                     sh 'mvn javadoc:javadoc'
-                    // Assurez-vous d'ajuster la commande de publication de la Javadoc en fonction de votre projet
-                    // Par exemple, utiliser un plugin Jenkins dédié ou copier les fichiers générés vers un serveur web
                 }
             }
         }
     }
-}
+  }
+            
