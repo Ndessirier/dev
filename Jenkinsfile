@@ -4,18 +4,20 @@ pipeline {
     tools {
         maven 'maven-3.5.2'
     }
-
+    //permet de se lancer toutes les 3 minutes dès un changement sur le repo
     triggers {
         pollSCM('*/3 * * * *') 
     }
-
+    
+    //Verifie le repo 
     stages {
         stage('Checkout') {
             steps {
                 checkout scm
             }
         }
-
+        
+        //Compile le project
         stage('Compilation') {
             steps {
                 script {
@@ -24,10 +26,10 @@ pipeline {
             }
         }
 
+        //Publie un Javadoc
         stage('Javadoc') {
             steps {
                 script {
-                    // Génère la Javadoc
                     sh 'mvn javadoc:javadoc'
                 }
             }
