@@ -1,8 +1,8 @@
 pipeline {
     agent any
 
-     tools {
-    maven 'maven-3.5.2'
+    tools {
+        maven 'maven-3.5.2'
     }
 
     triggers {
@@ -18,9 +18,17 @@ pipeline {
 
         stage('Compilation') {
             steps {
-                
                 script {
-                    sh 'mvn clean install'
+                    sh 'mvn clean compile'
+                }
+            }
+        }
+
+        stage('Tests') {
+            steps {
+                script {
+                    // Exécute les tests
+                    sh 'mvn test'
                 }
             }
         }
@@ -28,6 +36,7 @@ pipeline {
         stage('Javadoc') {
             steps {
                 script {
+                    // Génère la Javadoc
                     sh 'mvn javadoc:javadoc'
                 }
             }
