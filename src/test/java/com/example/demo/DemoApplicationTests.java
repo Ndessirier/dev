@@ -3,7 +3,7 @@ package com.example.demo;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
-public class CalculatorTest {
+public class DemoApplicationTests {
 
     @Test
     public void testAdd() {
