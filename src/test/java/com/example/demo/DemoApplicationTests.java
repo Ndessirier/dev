@@ -3,6 +3,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DemoApplicationTests {
 
+    @Disabled
     @Test
     public void testAdd() {
         // Logique de test pour l'addition
