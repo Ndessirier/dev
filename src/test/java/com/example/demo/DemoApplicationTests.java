@@ -1,3 +1,4 @@
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -18,11 +19,9 @@ public class DemoApplicationTests {
 
     @Test
     public void testDivide() {
-        // Logique de test pour la division
         assertEquals(2, divide(6, 3));
     }
 
-    // Méthodes utilitaires fictives pour les opérations de calcul
     private int add(int a, int b) {
         return a + b;
     }
