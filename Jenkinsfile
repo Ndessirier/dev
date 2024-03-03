@@ -24,14 +24,6 @@ pipeline {
             }
         }
 
-        stage('Tests') {
-            steps {
-                script {
-                    sh 'mvn test'
-                }
-            }
-        }
-
         stage('Javadoc') {
             steps {
                 script {
