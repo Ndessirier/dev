@@ -6,7 +6,7 @@ public class DemoApplicationTests {
     @Test
     public void testAdd() {
         // Logique de test pour l'addition
-        assertEquals(4, add(2, 2));
+        assertEquals(4, add(2, 3));
     }
 
     @Test
